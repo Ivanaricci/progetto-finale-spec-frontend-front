@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const HomePage = () => {
+export default function HomePage() {
     return (
-        <div>HomePage</div>
-    )
+        <section className="home">
+            <h1>Benvenuto nel Luxury Store</h1>
+            <p>Scopri blazer, maglie e pantaloni dei migliori brand.</p>
+            <Link to="/products">Esplora Prodotti</Link>
+        </section>
+    );
 }
-
-export default HomePage
