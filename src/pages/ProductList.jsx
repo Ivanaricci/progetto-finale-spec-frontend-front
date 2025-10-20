@@ -1,20 +1,17 @@
 import React from 'react'
 import { useProducts } from '../hooks/useProducts'
+import LuxuryCard from '../components/LuxuryCard';
 
 const ProductList = () => {
 
     const products = useProducts();
 
     return (
-        <main>
-            <ul>
+        <main className='product-list'>
+            <ul className='product-grid'>
                 {products.map(p => (
                     <li key={p.id}>
-                        <img src={p.image} alt="" />
-                        <div className='product-info'>
-                            <h3 className='product-title'>{p.title}</h3>
-                            <p className='product-category'>{p.category}</p>
-                        </div>
+                        <LuxuryCard image={p.image} title={p.title} category={p.category} />
                     </li>
                 ))}
             </ul>

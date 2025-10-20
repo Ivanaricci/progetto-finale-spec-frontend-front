@@ -54,9 +54,8 @@
 /* FOOTER */
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  bottom: auto;
   width: 100%;
   background-color: #f8f8f8;
   border-top: 1px solid #A8A6A4;
@@ -65,7 +64,9 @@
   color: #21201E;
   z-index: 50;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 4rem;
 }
+
 
 .footer-container {
   max-width: 1200px;
@@ -103,4 +104,97 @@
   color: #8A8D8B;
   font-size: 0.9rem;
   margin: 0.2rem 0;
+}
+
+
+
+
+/* PRODUCT LIST LAYOUT   */
+
+
+.product-list {
+  padding: 3rem 2rem 6rem;
+  background-color: #fdfdfd;
+  min-height: 100vh;
+}
+
+.product-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.product-grid li {
+  list-style: none;
+}
+
+
+/* LUXURY CARD COMPONENT */
+
+
+.luxury-card {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(33, 32, 30, 0.05);
+}
+
+.luxury-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 28px rgba(33, 32, 30, 0.1);
+}
+
+.luxury-card-image img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  background-color: #f8f8f8;
+}
+
+.luxury-card-content {
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.luxury-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #21201E;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+.luxury-card-category {
+  color: #8A8D8B;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
 }
