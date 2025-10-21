@@ -1,8 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const LuxuryCard = ({ image, title, category }) => {
+const LuxuryCard = ({ id, image, title, category }) => {
+
+    const navigate = useNavigate();
+
     return (
-        <div className='luxury-card'>
+        <div className='luxury-card'
+            onClick={() => navigate(`/products/${id}`)}
+            style={{ cursor: "pointer" }}>
             <div className='luxury-card-image'>
                 <img src={image} alt={title} />
             </div>

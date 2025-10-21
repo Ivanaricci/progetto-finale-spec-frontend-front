@@ -18,7 +18,15 @@ export const useProducts = () => {
                         const details = await res.json();
                         console.log(details)
                         // base+dettagli
-                        return { ...prod, ...details, image: details.product.image }
+                        return {
+                            ...prod, ...details,
+                            image: details.product.image,
+                            color: details.product.color,
+                            material: details.product.material,
+                            size: details.product.size,
+                            price: details.product.price,
+                            description: details.product.description
+                        }
                     })
                 );
 

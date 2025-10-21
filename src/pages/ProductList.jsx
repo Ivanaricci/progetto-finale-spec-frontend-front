@@ -86,6 +86,7 @@ const ProductList = () => {
                 {visibleProducts.map((p) => (
                     <li key={p.id}>
                         <LuxuryCard
+                            id={p.id}
                             image={p.image}
                             title={p.title}
                             category={p.category}

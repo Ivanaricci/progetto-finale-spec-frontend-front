@@ -455,3 +455,135 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===============================
+   PRODUCT DETAIL PAGE
+=============================== */
+
+.product-detail {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 2rem;
+  background-color: #f6f5f3;
+  min-height: 100vh;
+}
+
+.product-detail-image {
+  flex: 1;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(33, 32, 30, 0.08);
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.product-detail-info {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.detail-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #21201e;
+}
+
+.detail-category {
+  color: #8a8d8b;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.detail-description {
+  font-size: 1rem;
+  color: #21201e;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+.detail-meta {
+  margin-top: 1rem;
+  color: #21201e;
+  font-size: 0.95rem;
+}
+
+.detail-meta strong {
+  color: #21201e;
+  font-weight: 600;
+}
+
+.detail-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.detail-btn {
+  background-color: #21201e;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 6px rgba(33, 32, 30, 0.25);
+}
+
+.detail-btn:hover {
+  background-color: #3a3937;
+  transform: scale(1.05);
+}
+
+.detail-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #21201e;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+/* Stato prodotto non trovato */
+.not-found {
+  text-align: center;
+  padding: 5rem;
+  color: #8a8d8b;
+}
+
+/* ===============================
+   RESPONSIVE DETAIL PAGE
+=============================== */
+
+@media (max-width: 900px) {
+  .product-detail {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .product-detail-image {
+    max-width: 90%;
+  }
+
+  .product-detail-info {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .detail-actions {
+    justify-content: center;
+  }
+}
