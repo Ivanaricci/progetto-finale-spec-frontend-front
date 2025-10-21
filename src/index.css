@@ -307,6 +307,75 @@
   font-size: 0.95rem;
 }
 
+/* Accordion layout */
+.sidebar-section {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 70px;
+}
+
+.accordion-header {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #21201e;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.accordion-header:hover {
+  color: #8a8d8b;
+}
+
+.accordion-arrow {
+  font-size: 1.2rem;
+  color: #8a8d8b;
+  transition: transform 0.3s ease;
+}
+
+.accordion-arrow.open {
+  transform: rotate(90deg);
+}
+
+.accordion-body {
+  padding: 0.5rem 0 1rem 0.5rem;
+}
+
+.sidebar-option {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #8a8d8b;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar-option.active,
+.sidebar-option:hover {
+  color: #21201e;
+  font-weight: 600;
+}
+
+/* Checkbox categorie */
+.sidebar-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #21201e;
+  font-size: 0.95rem;
+  margin: 0.4rem 0;
+}
+
+
 /* Footer sidebar */
 .sidebar-footer {
   margin-top: auto;

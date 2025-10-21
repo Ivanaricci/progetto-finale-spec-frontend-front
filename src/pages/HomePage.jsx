@@ -7,6 +7,7 @@ export default function HomePage() {
             <h1>Benvenuto nel Luxury Store</h1>
             <p>Scopri blazer, maglie e pantaloni dei migliori brand.</p>
             <Link to="/products">Esplora Prodotti</Link>
+            <Link to="/products/:id">Pagina di dettaglio</Link>
         </section>
     );
 }
