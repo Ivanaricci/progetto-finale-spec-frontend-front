@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useGlobalContext } from '../context/GlobalContext'
 import { Heart, ShoppingCart } from 'lucide-react';
+import { useWishlist } from '../context/WishListContext';
 
 
 const ProductDetail = () => {
@@ -13,6 +14,10 @@ const ProductDetail = () => {
     const { id } = useParams()
 
     const product = products.find(p => p.id === parseInt(id))
+
+
+    const { toggleWishlist, isInWishlist } = useWishlist();
+    const inWishlist = product ? isInWishlist(product.id) : false;
 
     if (!product) {
         return <h1>Prodotto non trovato</h1>
@@ -51,8 +56,18 @@ const ProductDetail = () => {
                     <button className='icon-btn detail-btn'>
                         <ShoppingCart />
                     </button>
-                    <button className='icon-btn detail-btn'>
-                        <Heart />
+
+
+                    <button className='icon-btn detail-btn'
+                        onClick={() => toggleWishlist({
+                            id: product.id,
+                            image: product.image,
+                            title: product.title,
+                            category: product.category,
+                        })}
+                        aria-label='Aggiungi ai preferiti'
+                        title={inWishlist ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}>
+                        <Heart style={{ fill: inWishlist ? "#fff" : "none" }} />
                     </button>
                 </div>
 

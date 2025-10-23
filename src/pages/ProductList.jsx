@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import LuxuryCard from "../components/LuxuryCard";
 import FilterSidebar from "../components/FilterSidebar";
+import CompareView from "../components/CompareView";
 import { useGlobalContext } from "../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
-// funzione debounce generica
+// funzione debounce
 function debounce(callback, delay) {
     let timer;
     return (value) => {
@@ -15,33 +17,47 @@ function debounce(callback, delay) {
 }
 
 const ProductList = () => {
-    // Crea un nuovo stato globale NO ❌
-    // const products = useProducts();
-
     const { productsState } = useGlobalContext();
-    const products = productsState
+    const products = productsState || [];
 
-
-
-    // 🔍 RICERCA
+    // 🔍 ricerca
     const [search, setSearch] = useState("");
     const debounceSetSearch = useCallback(debounce(setSearch, 500), []);
 
-    // ⚙️ FILTRI E ORDINAMENTO
+    // ⚙️ filtro e ordinamento
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [sortBy, setSortBy] = useState("title");
+    const [sortBy, setSortBy] = useState();
     const [sortOrder, setSortOrder] = useState(1);
 
-    // 🧱 categorie uniche dai prodotti
+    // 🔁 modalità confronto
+    const [isCompareMode, setIsCompareMode] = useState(false);
+    const [selectedCards, setSelectedCards] = useState([]);
+
+    const navigate = useNavigate();
+
+    const toggleCompareMode = () => {
+        setIsCompareMode(!isCompareMode);
+        setSelectedCards([]); // reset selezioni
+    };
+
+    const handleSelectCard = (id) => {
+        if (selectedCards.includes(id)) {
+            setSelectedCards(selectedCards.filter((c) => c !== id));
+        } else if (selectedCards.length < 2) {
+            setSelectedCards([...selectedCards, id]);
+        }
+    };
+
+    // categorie uniche
     const categories = useMemo(
         () => [...new Set(products.map((p) => p.category))],
         [products]
     );
 
-    // 🧠 LOGICA RICERCA, FILTRO E ORDINAMENTO
+    // filtraggio, ricerca e sort
     const visibleProducts = useMemo(() => {
-        return [...(products || [])]
+        return [...products]
             .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
             .filter((p) =>
                 selectedCategories.length > 0
@@ -59,7 +75,7 @@ const ProductList = () => {
             });
     }, [products, search, selectedCategories, sortBy, sortOrder]);
 
-    // 🔁 ORDINA (A-Z / Z-A)
+    // ordinamento toggle
     const handleSort = (field) => {
         if (sortBy === field) {
             setSortOrder((prev) => prev * -1);
@@ -69,10 +85,25 @@ const ProductList = () => {
         }
     };
 
-    // ✅ RENDER
+    // se 2 prodotti selezionati → mostra CompareView
+    if (isCompareMode && selectedCards.length === 2) {
+        const compareProducts = products.filter((p) =>
+            selectedCards.includes(p.id)
+        );
+        return (
+            <CompareView
+                products={compareProducts}
+                onExit={() => {
+                    setIsCompareMode(false);
+                    setSelectedCards([]);
+                }}
+            />
+        );
+    }
+
     return (
         <main className="product-list">
-            {/* Barra di ricerca */}
+            {/* barra di ricerca */}
             <div className="search-bar">
                 <input
                     type="text"
@@ -81,7 +112,20 @@ const ProductList = () => {
                 />
             </div>
 
-            {/* Griglia prodotti */}
+            {/* pulsante modalità confronto */}
+            <div className="compare-controls">
+                <button
+                    className={`compare-button ${isCompareMode ? "active" : ""}`}
+                    onClick={toggleCompareMode}
+                >
+                    {isCompareMode ? "Esci dal confronto" : "Confronta due capi"}
+                </button>
+                {isCompareMode && (
+                    <p className="compare-info">{selectedCards.length}/2 selezionati</p>
+                )}
+            </div>
+
+            {/* griglia prodotti */}
             <ul className="product-grid">
                 {visibleProducts.map((p) => (
                     <li key={p.id}>
@@ -90,12 +134,15 @@ const ProductList = () => {
                             image={p.image}
                             title={p.title}
                             category={p.category}
+                            isCompareMode={isCompareMode}
+                            selectedCards={selectedCards}
+                            onSelect={handleSelectCard}
                         />
                     </li>
                 ))}
             </ul>
 
-            {/* Bottone fisso */}
+            {/* bottone filtri */}
             <button
                 className="filter-button-fixed"
                 onClick={() => setIsSidebarOpen(true)}
@@ -103,7 +150,7 @@ const ProductList = () => {
                 Filtra & Ordina
             </button>
 
-            {/* Sidebar (modale) */}
+            {/* sidebar */}
             <FilterSidebar
                 isOpen={isSidebarOpen}
                 onClose={() => setIsSidebarOpen(false)}
@@ -119,3 +166,4 @@ const ProductList = () => {
 };
 
 export default ProductList;
+

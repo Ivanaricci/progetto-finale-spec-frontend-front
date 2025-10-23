@@ -6,6 +6,8 @@ import ProductDetail from './pages/ProductDetail'
 import { GlobalProvider } from './context/GlobalContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import { WishListProvider } from './context/WishListContext'
+import WishlistPage from './pages/WishlistPage'
 
 
 
@@ -14,18 +16,23 @@ import Footer from './components/Footer'
 const App = () => {
   return (
     <GlobalProvider>
-      <BrowserRouter>
+      <WishListProvider>
 
-        <Header />
+        <BrowserRouter>
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-        </Routes>
+          <Header />
 
-        <Footer />
-      </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+
+          </Routes>
+
+          <Footer />
+        </BrowserRouter>
+      </WishListProvider>
     </GlobalProvider>
   )
 }
